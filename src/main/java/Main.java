@@ -13,9 +13,16 @@ public class Main {
         Document doc = Jsoup.connect(url).get();
 
         List<Music> musicList = new ArrayList<>();
+        List<Time> chartTime = new ArrayList<>();
+
         Elements rankElements = doc.select("[id=tb_list] tr");
+
         String year = doc.select("span.yyyymmdd").text();
         String time = doc.select("span.hhmm").text();
+        Time times = new Time(year, time);
+        chartTime.add(times);
+
+        System.out.println(times);
 
         for (Element rankElement : rankElements) {
             String rank = rankElement.select("span.rank").text();
@@ -33,7 +40,5 @@ public class Main {
                 System.out.println(musics);
             }
         }
-        System.out.println(year + " " + time + " 기준 TOP 100 차트");
-
     }
 }
