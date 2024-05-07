@@ -14,9 +14,9 @@ public class main {
 
         List<music> musicList = new ArrayList<>();
         Elements rankElements = doc.select("[id=tb_list] tr");
-        int rank = 0;
 
         for (Element rankElement : rankElements) {
+            String rank = rankElement.select("span.rank").text();
             String title = rankElement.select(".ellipsis.rank01 > span > a").text();
             String artist = rankElement.select(".ellipsis.rank02 > span > a").text();
             String album = rankElement.select("a.image_typeAll img").attr("src");
@@ -24,13 +24,11 @@ public class main {
             music musics = new music(rank, title, artist, album);
             musicList.add(musics);
 
-            rank++;
         }
 
         for (music musics : musicList) {
-            if (!musics.isEmpty()) {
+            if(!musics.isEmpty())
                 System.out.println(musics);
-            }
         }
     }
 }

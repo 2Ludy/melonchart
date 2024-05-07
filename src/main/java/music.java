@@ -1,22 +1,22 @@
 public class music {
-    int rank;
+    String rank;
     String title;
     String artist;
     String album;
 
 
-    public music(int rank, String title, String artist, String album) {
+    public music(String rank, String title, String artist, String album) {
         this.rank = rank;
         this.title = title;
         this.artist = artist;
         this.album = album;
     }
 
-    public int getRank() {
+    public String getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(String rank) {
         this.rank = rank;
     }
 
@@ -55,7 +55,7 @@ public class music {
     }
 
     public boolean isEmpty() {
-        return rank == 0 && title.isEmpty() && artist.isEmpty() && album.isEmpty();
+        return rank.isEmpty() && title.isEmpty() && artist.isEmpty() && album.isEmpty();
     }
 }
 
