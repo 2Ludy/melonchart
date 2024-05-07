@@ -1,11 +1,11 @@
-public class music {
-    String rank;
-    String title;
-    String artist;
-    String album;
+public class Music {
+    private String rank;
+    private String title;
+    private String artist;
+    private String album;
 
 
-    public music(String rank, String title, String artist, String album) {
+    public Music(String rank, String title, String artist, String album) {
         this.rank = rank;
         this.title = title;
         this.artist = artist;
@@ -52,10 +52,12 @@ public class music {
                 ", 가수 : '" + artist + '\'' +
                 ", 앨범 : '" + album + '\'' +
                 '}';
+
+
     }
 
     public boolean isEmpty() {
-        return rank.isEmpty() && title.isEmpty() && artist.isEmpty() && album.isEmpty();
+        return rank.isEmpty() || title.isEmpty() || artist.isEmpty() || album.isEmpty();
     }
 }
 
