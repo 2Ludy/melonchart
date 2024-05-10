@@ -1,6 +1,6 @@
 public class Time {
-    String year;
-    String time;
+    private String year;
+    private String time;
 
     public Time(String year, String time) {
         this.year = year;

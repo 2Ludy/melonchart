@@ -1,7 +1,9 @@
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,16 +15,14 @@ public class Main {
         Document doc = Jsoup.connect(url).get();
 
         List<Music> musicList = new ArrayList<>();
-        List<Time> chartTime = new ArrayList<>();
 
         Elements rankElements = doc.select("[id=tb_list] tr");
 
         String year = doc.select("span.yyyymmdd").text();
-        String time = doc.select("span.hhmm").text();
-        Time times = new Time(year, time);
-        chartTime.add(times);
+        String time = doc.select("span.hhmm").text().replace(":", "");
+        Time chartTime = new Time(year, time);
 
-        System.out.println(times);
+        System.out.println(chartTime);
 
         for (Element rankElement : rankElements) {
             String rank = rankElement.select("span.rank").text();
@@ -31,14 +31,26 @@ public class Main {
             String album = rankElement.select("a.image_typeAll img").attr("src");
 
             Music musics = new Music(rank, title, artist, album);
-            musicList.add(musics);
-
+                if (!musics.isEmpty()) {
+                    musicList.add(musics);
+                }
+            }
+        for (Music music : musicList) {
+            System.out.println(music);
         }
 
-        for (Music musics : musicList) {
-            if (!musics.isEmpty()) {
-                System.out.println(musics);
-            }
+        Gson gson = new Gson();
+        try {
+            FileWriter musicWriter = new FileWriter(year + "_" + time + "_chart.json");
+            gson.toJson(musicList, musicWriter);
+            musicWriter.close();
+
+            FileWriter timeWriter = new FileWriter("time.json");
+            gson.toJson(chartTime, timeWriter);
+            timeWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
