@@ -20,9 +20,8 @@ public class Main {
 
         String year = doc.select("span.yyyymmdd").text();
         String time = doc.select("span.hhmm").text().replace(":", "");
-        Time chartTime = new Time(year, time);
 
-        System.out.println(chartTime);
+        System.out.println(year + " " + time + " 기준 TOP 100 차트");
 
         for (Element rankElement : rankElements) {
             String rank = rankElement.select("span.rank").text();
@@ -44,10 +43,6 @@ public class Main {
             FileWriter musicWriter = new FileWriter(year + "_" + time + "_chart.json");
             gson.toJson(musicList, musicWriter);
             musicWriter.close();
-
-            FileWriter timeWriter = new FileWriter("time.json");
-            gson.toJson(chartTime, timeWriter);
-            timeWriter.close();
 
         } catch (IOException e) {
             e.printStackTrace();

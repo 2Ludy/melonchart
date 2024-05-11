@@ -1,8 +1,11 @@
+import java.util.Date;
+
 public class Music {
     private String rank;
     private String title;
     private String artist;
     private String album;
+    private Date chartTime;
 
 
     public Music(String rank, String title, String artist, String album) {
